@@ -41,7 +41,7 @@ public partial class FoldersView : ContentPage
         else if (folderUrl.EndsWith(".mkv") || folderUrl.EndsWith(".mp4"))
         {
             var fileName = selectedFolderNode.InnerText;
-            await Navigation.PushAsync(new MediaView(fileName, absoluteUrl));
+            await Navigation.PushModalAsync(new MediaView(fileName, absoluteUrl));
         }
         else
         {

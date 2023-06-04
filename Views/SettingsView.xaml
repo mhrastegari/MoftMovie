@@ -4,10 +4,31 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     NavigationPage.HasNavigationBar="False">
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="20">
         <Label
-            HorizontalOptions="Center"
-            Text="Welcome to SettingsView"
-            VerticalOptions="Center" />
+            Margin="0,0,0,10"
+            FontSize="Subtitle"
+            HorizontalOptions="Start"
+            Text="Theme" />
+        <RadioButton Content="Dark" IsEnabled="False" />
+        <RadioButton Content="Light" IsEnabled="False" />
+        <RadioButton Content="System" IsChecked="True" />
+
+        <Label
+            Margin="0,40,0,20"
+            FontSize="Subtitle"
+            HorizontalOptions="Start"
+            Text="File Provider" />
+        <Picker
+            HorizontalOptions="Start"
+            IsEnabled="False"
+            MinimumWidthRequest="110"
+            SelectedIndex="0">
+            <Picker.Items>
+                <x:String>https://dl4.gemexit.com/</x:String>
+                <x:String>http://dl.gemescape.com/</x:String>
+                <x:String>https://dl5.freelecher.xyz/</x:String>
+            </Picker.Items>
+        </Picker>
     </VerticalStackLayout>
 </ContentPage>

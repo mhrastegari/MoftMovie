@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:media="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="False">
     <Grid>
         <media:MediaElement x:Name="media" ShouldAutoPlay="True">
@@ -15,6 +16,7 @@
             x:Name="header"
             Margin="0"
             Padding="21,0"
+            BackgroundColor="Transparent"
             CornerRadius="0"
             HasShadow="False"
             HorizontalOptions="FillAndExpand"
@@ -36,6 +38,26 @@
                     Source="back.png"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="30" />
+                <ImageButton
+                    x:Name="fullscreen_button"
+                    Padding="6"
+                    BackgroundColor="#212529"
+                    BorderColor="Transparent"
+                    BorderWidth="0"
+                    Clicked="FullScreen_Clicked"
+                    CornerRadius="21"
+                    HeightRequest="30"
+                    HorizontalOptions="EndAndExpand"
+                    IsVisible="{OnPlatform WinUI=true,
+                                           Default=false}"
+                    Rotation="90"
+                    Source="fullscreen.png"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="30">
+                    <ImageButton.Behaviors>
+                        <media:IconTintColorBehavior TintColor="White" />
+                    </ImageButton.Behaviors>
+                </ImageButton>
             </StackLayout>
         </Frame>
     </Grid>

@@ -4,4 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-    android:TabbedPage.ToolbarPlacement="Bottom" />
+    xmlns:views="clr-namespace:MoftMovie.Views"
+    android:TabbedPage.ToolbarPlacement="Bottom">
+    <views:FoldersView Title="Browse" IconImageSource="folder.png" />
+    <views:SettingsView Title="Settings" IconImageSource="settings.png" />
+</TabbedPage>

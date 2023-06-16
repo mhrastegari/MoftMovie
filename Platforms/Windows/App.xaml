@@ -2,7 +2,22 @@
     x:Class="MoftMovie.WinUI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:maui="using:Microsoft.Maui"
-    xmlns:local="using:MoftMovie.WinUI">
-
+    xmlns:local="using:MoftMovie.WinUI"
+    xmlns:maui="using:Microsoft.Maui">
+    <maui:MauiWinUIApplication.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="WindowCaptionBackground">Transparent</SolidColorBrush>
+            <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled">Transparent</SolidColorBrush>
+            <DataTemplate x:Key="MauiAppTitleBarContainerTemplate">
+                <Grid HorizontalAlignment="Stretch">
+                    <ContentControl
+                        x:Name="AppTitleBarContentControl"
+                        Grid.Column="4"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        IsTabStop="False" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </maui:MauiWinUIApplication.Resources>
 </maui:MauiWinUIApplication>

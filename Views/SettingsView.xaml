@@ -5,14 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     NavigationPage.HasNavigationBar="False">
     <VerticalStackLayout Padding="20">
-        <Label
-            Margin="0,0,0,10"
-            FontSize="Subtitle"
-            HorizontalOptions="Start"
-            Text="Theme" />
-        <RadioButton Content="Dark" IsEnabled="False" />
-        <RadioButton Content="Light" IsEnabled="False" />
-        <RadioButton Content="System" IsChecked="True" />
+        <VerticalStackLayout RadioButtonGroup.GroupName="theme">
+            <Label
+                Margin="0,0,0,10"
+                FontSize="Subtitle"
+                HorizontalOptions="Start"
+                Text="Theme" />
+            <RadioButton Content="Dark" IsEnabled="False" />
+            <RadioButton Content="Light" IsEnabled="False" />
+            <RadioButton Content="System" IsChecked="True" />
+        </VerticalStackLayout>
 
         <Label
             Margin="0,40,0,20"
@@ -20,14 +22,13 @@
             HorizontalOptions="Start"
             Text="File Provider" />
         <Picker
+            x:Name="picker"
             HorizontalOptions="Start"
-            IsEnabled="False"
             MinimumWidthRequest="110"
-            SelectedIndex="0">
+            SelectedIndexChanged="Picker_SelectedIndexChanged">
             <Picker.Items>
                 <x:String>https://dl4.gemexit.com/</x:String>
                 <x:String>http://dl.gemescape.com/</x:String>
-                <x:String>https://dl5.freelecher.xyz/</x:String>
             </Picker.Items>
         </Picker>
     </VerticalStackLayout>

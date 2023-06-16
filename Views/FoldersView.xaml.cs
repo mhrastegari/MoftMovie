@@ -1,23 +1,25 @@
-using HtmlAgilityPack;
-using System.Diagnostics;
-
 namespace MoftMovie.Views;
 
 public partial class FoldersView : ContentPage
 {
+    public static FoldersView Current { get; set; }
+
     private string currentFolderUrl = string.Empty;
+    private string currentServer = string.Empty;
 
     public FoldersView()
     {
         InitializeComponent();
+        Current = this;
         LoadFolders();
     }
 
-    private async Task LoadFolders()
+    public async Task LoadFolders()
     {
+        currentServer = Preferences.Get("FileProviderUrl", "https://dl4.gemexit.com");
         var httpClient = new HttpClient();
-        var html = await httpClient.GetStringAsync("https://dl4.gemexit.com");
-        var doc = new HtmlDocument();
+        var html = await httpClient.GetStringAsync(currentServer);
+        var doc = new HtmlAgilityPack.HtmlDocument();
         doc.LoadHtml(html);
 
         var folderNodes = doc.DocumentNode.SelectNodes("//td[@class='link']/a");
@@ -30,9 +32,9 @@ public partial class FoldersView : ContentPage
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         var selectedItem = sender as StackLayout;
-        var selectedFolderNode = selectedItem.BindingContext as HtmlNode;
+        var selectedFolderNode = selectedItem.BindingContext as HtmlAgilityPack.HtmlNode;
         var folderUrl = selectedFolderNode.GetAttributeValue("href", "");
-        var absoluteUrl = new Uri(new Uri("https://dl4.gemexit.com/" + currentFolderUrl), folderUrl).AbsoluteUri;
+        var absoluteUrl = new Uri(new Uri(currentServer + currentFolderUrl), folderUrl).AbsoluteUri;
 
         if (folderUrl.EndsWith("/"))
         {
@@ -46,9 +48,9 @@ public partial class FoldersView : ContentPage
         else
         {
 #if WINDOWS
-            new Process
+            new System.Diagnostics.Process
             {
-                StartInfo = new ProcessStartInfo(absoluteUrl)
+                StartInfo = new System.Diagnostics.ProcessStartInfo(absoluteUrl)
                 {
                     UseShellExecute = true
                 }
@@ -66,17 +68,16 @@ public partial class FoldersView : ContentPage
     private async Task LoadSubfolders(string folderUrl)
     {
         var httpClient = new HttpClient();
-        var baseUrl = "https://dl4.gemexit.com/";
 
-        if (folderUrl.StartsWith(baseUrl))
+        if (folderUrl.StartsWith(currentServer))
         {
-            folderUrl = folderUrl.Substring(baseUrl.Length);
+            folderUrl = folderUrl.Substring(currentServer.Length);
         }
 
-        var absoluteUrl = new Uri(new Uri(baseUrl), folderUrl).AbsoluteUri;
+        var absoluteUrl = new Uri(new Uri(currentServer), folderUrl).AbsoluteUri;
 
         var html = await httpClient.GetStringAsync(absoluteUrl);
-        var doc = new HtmlDocument();
+        var doc = new HtmlAgilityPack.HtmlDocument();
         doc.LoadHtml(html);
 
         var folderNodes = doc.DocumentNode.SelectNodes("//td[@class='link']/a");

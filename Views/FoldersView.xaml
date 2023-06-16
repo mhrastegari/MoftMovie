@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:MoftMovie.Views.Converters"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -13,12 +14,35 @@
     <CollectionView x:Name="foldersView">
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <StackLayout Padding="10" HeightRequest="55">
+                <StackLayout
+                    Padding="10"
+                    HeightRequest="55"
+                    Orientation="Horizontal">
                     <Label
                         Padding="15,0"
+                        HorizontalOptions="StartAndExpand"
+                        HorizontalTextAlignment="Start"
                         Text="{Binding InnerText, Converter={StaticResource RemoveTrailingSlashConverter}}"
                         VerticalOptions="CenterAndExpand"
                         VerticalTextAlignment="Center" />
+                    <ImageButton
+                        x:Name="copy_button"
+                        Padding="6"
+                        BackgroundColor="#212529"
+                        BorderColor="Transparent"
+                        BorderWidth="0"
+                        Clicked="copy_button_Clicked"
+                        CornerRadius="21"
+                        HeightRequest="30"
+                        HorizontalOptions="End"
+                        Rotation="90"
+                        Source="copy.png"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="30">
+                        <ImageButton.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="White" />
+                        </ImageButton.Behaviors>
+                    </ImageButton>
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                     </StackLayout.GestureRecognizers>

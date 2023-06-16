@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Alerts;
+
 namespace MoftMovie.Views;
 
 public partial class FoldersView : ContentPage
@@ -87,5 +89,17 @@ public partial class FoldersView : ContentPage
         }
 
         currentFolderUrl = folderUrl;
+    }
+
+    private void copy_button_Clicked(object sender, EventArgs e)
+    {
+        var clickedButton = sender as ImageButton;
+        var selectedFolderNode = clickedButton.BindingContext as HtmlAgilityPack.HtmlNode;
+        var folderUrl = selectedFolderNode.GetAttributeValue("href", "");
+
+        var fileLink = currentServer + folderUrl;
+        Clipboard.SetTextAsync(fileLink);
+
+        Toast.Make("Link copied in the clipboard").Show();
     }
 }

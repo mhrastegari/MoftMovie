@@ -1,8 +1,4 @@
 using CommunityToolkit.Maui.Views;
-#if WINDOWS
-using Microsoft.UI;
-using WinRT.Interop;
-#endif
 
 namespace MoftMovie.Views;
 
@@ -83,12 +79,14 @@ public partial class MediaView : ContentPage
                 {
                     overlappedPresenter.SetBorderAndTitleBar(true, true);
                     window.ExtendsContentIntoTitleBar = true;
+                    header.Margin = new Thickness(0, 10);
                     overlappedPresenter.Restore();
                 }
                 else
                 {
                     overlappedPresenter.SetBorderAndTitleBar(false, false);
                     window.ExtendsContentIntoTitleBar = false;
+                    header.Margin = new Thickness(0);
                     overlappedPresenter.Maximize();
                 }
 

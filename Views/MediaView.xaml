@@ -14,7 +14,7 @@
         </media:MediaElement>
         <Frame
             x:Name="header"
-            Margin="0"
+            Margin="{OnPlatform WinUI='0,10'}"
             Padding="21,0"
             BackgroundColor="Transparent"
             CornerRadius="0"

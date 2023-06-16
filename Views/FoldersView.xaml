@@ -15,11 +15,11 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout
-                    Padding="10"
+                    Padding="10,0"
                     HeightRequest="55"
                     Orientation="Horizontal">
                     <Label
-                        Padding="15,0"
+                        Padding="10"
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
                         Text="{Binding InnerText, Converter={StaticResource RemoveTrailingSlashConverter}}"

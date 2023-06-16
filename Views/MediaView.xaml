@@ -10,6 +10,7 @@
         <media:MediaElement x:Name="media" ShouldAutoPlay="True">
             <media:MediaElement.GestureRecognizers>
                 <TapGestureRecognizer Tapped="media_Tapped" />
+                <TapGestureRecognizer Tapped="media_DoubleTapped" NumberOfTapsRequired="2" />
             </media:MediaElement.GestureRecognizers>
         </media:MediaElement>
         <Frame

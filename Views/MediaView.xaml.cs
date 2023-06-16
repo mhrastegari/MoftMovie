@@ -46,7 +46,7 @@ public partial class MediaView : ContentPage
                     overlappedPresenter.Restore();
                 }
 
-            break;
+                break;
         }
 #endif
 
@@ -60,12 +60,7 @@ public partial class MediaView : ContentPage
         HandleBack();
     }
 
-    private void media_Tapped(object sender, EventArgs e)
-    {
-        header.IsVisible = !header.IsVisible;
-    }
-
-    private void FullScreen_Clicked(object sender, EventArgs e)
+    private void SetupFullScreen()
     {
 #if WINDOWS
         var window = GetParentWindow().Handler.PlatformView as MauiWinUIWindow;
@@ -90,8 +85,23 @@ public partial class MediaView : ContentPage
                     overlappedPresenter.Maximize();
                 }
 
-            break;
+                break;
         }
 #endif
+    }
+
+    private void FullScreen_Clicked(object sender, EventArgs e)
+    {
+        SetupFullScreen();
+    }
+
+    private void media_DoubleTapped(object sender, EventArgs e)
+    {
+        SetupFullScreen();
+    }
+
+    private void media_Tapped(object sender, EventArgs e)
+    {
+        header.IsVisible = !header.IsVisible;
     }
 }

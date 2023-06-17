@@ -21,4 +21,25 @@ public partial class SettingsView : ContentPage
 
         await FoldersView.Current.LoadFolders();
     }
+
+    private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        var selectedRadioButton = sender as RadioButton;
+
+        if (selectedRadioButton.IsChecked)
+        {
+            switch (selectedRadioButton.Content.ToString())
+            {
+                case "Dark":
+                    Application.Current.UserAppTheme = AppTheme.Dark;
+                    break;
+                case "Light":
+                    Application.Current.UserAppTheme = AppTheme.Light;
+                    break;
+                case "System":
+                    Application.Current.UserAppTheme = AppTheme.Unspecified;
+                    break;
+            }
+        }
+    }
 }

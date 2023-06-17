@@ -19,15 +19,34 @@ public partial class FoldersView : ContentPage
     public async Task LoadFolders()
     {
         currentServer = Preferences.Get("FileProviderUrl", "https://dl4.gemexit.com");
-        var httpClient = new HttpClient();
-        var html = await httpClient.GetStringAsync(currentServer);
-        var doc = new HtmlAgilityPack.HtmlDocument();
-        doc.LoadHtml(html);
 
-        var folderNodes = doc.DocumentNode.SelectNodes("//td[@class='link']/a");
-        if (folderNodes != null)
+        var httpClient = new HttpClient();
+
+        try
         {
-            foldersView.ItemsSource = folderNodes;
+            var html = await httpClient.GetStringAsync(currentServer);
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(html);
+
+            var folderNodes = doc.DocumentNode.SelectNodes("//td[@class='link']/a");
+            if (folderNodes == null)
+            {
+                folderNodes = doc.DocumentNode.SelectNodes("//pre/a[starts-with(@href, '/')]");
+                foldersView.ItemsSource = folderNodes;
+            }
+            else
+            {
+                foldersView.ItemsSource = folderNodes;
+            }
+        }
+        catch
+        {
+            var result = await DisplayAlert("Error", "Unable to load folders. Please check your internet connection and try again.", "Refresh", "Cancel");
+
+            if (result)
+            {
+                await LoadFolders();
+            }
         }
     }
 
@@ -77,13 +96,17 @@ public partial class FoldersView : ContentPage
         }
 
         var absoluteUrl = new Uri(new Uri(currentServer), folderUrl).AbsoluteUri;
-
         var html = await httpClient.GetStringAsync(absoluteUrl);
         var doc = new HtmlAgilityPack.HtmlDocument();
         doc.LoadHtml(html);
 
         var folderNodes = doc.DocumentNode.SelectNodes("//td[@class='link']/a");
-        if (folderNodes != null)
+        if (folderNodes == null)
+        {
+            folderNodes = doc.DocumentNode.SelectNodes("//pre/a[starts-with(@href, '/')]");
+            foldersView.ItemsSource = folderNodes;
+        }
+        else
         {
             foldersView.ItemsSource = folderNodes;
         }

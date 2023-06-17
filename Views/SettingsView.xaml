@@ -11,9 +11,18 @@
                 FontSize="Subtitle"
                 HorizontalOptions="Start"
                 Text="Theme" />
-            <RadioButton Content="Dark" IsEnabled="False" />
-            <RadioButton Content="Light" IsEnabled="False" />
-            <RadioButton Content="System" IsChecked="True" />
+            <RadioButton
+                CheckedChanged="RadioButton_CheckedChanged"
+                Content="Dark"
+                IsEnabled="False" />
+            <RadioButton
+                CheckedChanged="RadioButton_CheckedChanged"
+                Content="Light"
+                IsEnabled="False" />
+            <RadioButton
+                CheckedChanged="RadioButton_CheckedChanged"
+                Content="System"
+                IsChecked="True" />
         </VerticalStackLayout>
 
         <Label
@@ -29,6 +38,10 @@
             <Picker.Items>
                 <x:String>https://dl4.gemexit.com/</x:String>
                 <x:String>http://dl.gemescape.com/</x:String>
+                <x:String>https://dl1.freelecher.xyz/English/</x:String>
+                <x:String>https://dl3.freelecher.xyz/English/</x:String>
+                <x:String>https://dl4.freelecher.xyz/English/</x:String>
+                <x:String>https://dl5.freelecher.xyz/English/</x:String>
             </Picker.Items>
         </Picker>
     </VerticalStackLayout>

@@ -30,6 +30,22 @@ public partial class MediaView : ContentPage
 
     private async void HandleBack()
     {
+        media.Stop();
+        media.Source = null;
+
+#if ANDROID
+        if ((int)Android.OS.Build.VERSION.SdkInt >= 19)
+        {
+            Platform.CurrentActivity.Window.DecorView.SystemUiVisibility &= ~(Android.Views.StatusBarVisibility)(
+                Android.Views.SystemUiFlags.LayoutStable |
+                Android.Views.SystemUiFlags.LayoutHideNavigation |
+                Android.Views.SystemUiFlags.LayoutFullscreen |
+                Android.Views.SystemUiFlags.HideNavigation |
+                Android.Views.SystemUiFlags.Fullscreen |
+                Android.Views.SystemUiFlags.Immersive);
+        }
+#endif
+
 #if WINDOWS
         var window = GetParentWindow().Handler.PlatformView as MauiWinUIWindow;
 
@@ -47,11 +63,9 @@ public partial class MediaView : ContentPage
 
                 break;
         }
-#endif
-
-        media.Stop();
-        media.Source = null;
         await Navigation.PopModalAsync();
+#endif
+        await Navigation.PopAsync();
     }
 
     private void Back_Clicked(object sender, EventArgs e)
@@ -85,6 +99,34 @@ public partial class MediaView : ContentPage
                 }
 
                 break;
+        }
+#endif
+
+#if ANDROID
+        var activity = Platform.CurrentActivity;
+
+        if ((int)Android.OS.Build.VERSION.SdkInt >= 19)
+        {
+            if (activity.Window.DecorView.SystemUiVisibility == Android.Views.StatusBarVisibility.Visible)
+            {
+                activity.Window.DecorView.SystemUiVisibility = (Android.Views.StatusBarVisibility)(
+                    Android.Views.SystemUiFlags.LayoutStable |
+                    Android.Views.SystemUiFlags.LayoutHideNavigation |
+                    Android.Views.SystemUiFlags.LayoutFullscreen |
+                    Android.Views.SystemUiFlags.HideNavigation |
+                    Android.Views.SystemUiFlags.Fullscreen |
+                    Android.Views.SystemUiFlags.Immersive);
+            }
+            else
+            {
+                activity.Window.DecorView.SystemUiVisibility &= ~(Android.Views.StatusBarVisibility)(
+                    Android.Views.SystemUiFlags.LayoutStable |
+                    Android.Views.SystemUiFlags.LayoutHideNavigation |
+                    Android.Views.SystemUiFlags.LayoutFullscreen |
+                    Android.Views.SystemUiFlags.HideNavigation |
+                    Android.Views.SystemUiFlags.Fullscreen |
+                    Android.Views.SystemUiFlags.Immersive);
+            }
         }
 #endif
     }

@@ -56,8 +56,6 @@
                     CornerRadius="21"
                     HeightRequest="30"
                     HorizontalOptions="EndAndExpand"
-                    IsVisible="{OnPlatform WinUI=true,
-                                           Default=false}"
                     Rotation="90"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="30">

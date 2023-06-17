@@ -40,7 +40,6 @@ public partial class MediaView : ContentPage
             case Microsoft.UI.Windowing.OverlappedPresenter overlappedPresenter:
                 if (overlappedPresenter.State == Microsoft.UI.Windowing.OverlappedPresenterState.Maximized)
                 {
-                    fullscreen_button.Source = ImageSource.FromFile("fullscreen.png");
                     overlappedPresenter.SetBorderAndTitleBar(true, true);
                     window.ExtendsContentIntoTitleBar = true;
                     overlappedPresenter.Restore();

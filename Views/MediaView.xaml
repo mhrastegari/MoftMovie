@@ -3,16 +3,16 @@
     x:Class="MoftMovie.Views.MediaView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:media="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="False">
     <Grid>
-        <media:MediaElement x:Name="media" ShouldAutoPlay="True">
-            <media:MediaElement.GestureRecognizers>
+        <toolkit:MediaElement x:Name="media" ShouldAutoPlay="True">
+            <toolkit:MediaElement.GestureRecognizers>
                 <TapGestureRecognizer Tapped="media_Tapped" />
-                <TapGestureRecognizer Tapped="media_DoubleTapped" NumberOfTapsRequired="2" />
-            </media:MediaElement.GestureRecognizers>
-        </media:MediaElement>
+                <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="media_DoubleTapped" />
+            </toolkit:MediaElement.GestureRecognizers>
+        </toolkit:MediaElement>
         <Frame
             x:Name="header"
             Margin="{OnPlatform WinUI='0,10'}"
@@ -27,38 +27,52 @@
                 Orientation="Horizontal"
                 Spacing="16"
                 VerticalOptions="CenterAndExpand">
-                <ImageButton
+                <Frame
                     Padding="6"
                     BackgroundColor="#212529"
                     BorderColor="Transparent"
-                    BorderWidth="0"
-                    Clicked="Back_Clicked"
                     CornerRadius="21"
                     HeightRequest="30"
                     HorizontalOptions="StartAndExpand"
-                    Source="back.png"
                     VerticalOptions="CenterAndExpand"
-                    WidthRequest="30" />
-                <ImageButton
+                    WidthRequest="30">
+                    <Image
+                        HorizontalOptions="CenterAndExpand"
+                        Source="back.png"
+                        VerticalOptions="CenterAndExpand">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="White" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Back_Clicked" />
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame
                     x:Name="fullscreen_button"
                     Padding="6"
                     BackgroundColor="#212529"
                     BorderColor="Transparent"
-                    BorderWidth="0"
-                    Clicked="FullScreen_Clicked"
                     CornerRadius="21"
                     HeightRequest="30"
                     HorizontalOptions="EndAndExpand"
                     IsVisible="{OnPlatform WinUI=true,
                                            Default=false}"
                     Rotation="90"
-                    Source="fullscreen.png"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="30">
-                    <ImageButton.Behaviors>
-                        <media:IconTintColorBehavior TintColor="White" />
-                    </ImageButton.Behaviors>
-                </ImageButton>
+                    <Image
+                        HorizontalOptions="CenterAndExpand"
+                        Source="fullscreen.png"
+                        VerticalOptions="CenterAndExpand">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="White" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="FullScreen_Clicked" />
+                    </Frame.GestureRecognizers>
+                </Frame>
             </StackLayout>
         </Frame>
     </Grid>

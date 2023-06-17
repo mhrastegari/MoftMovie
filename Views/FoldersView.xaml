@@ -25,29 +25,36 @@
                         Text="{Binding InnerText, Converter={StaticResource RemoveTrailingSlashConverter}}"
                         VerticalOptions="CenterAndExpand"
                         VerticalTextAlignment="Center" />
-                    <ImageButton
+                    <Frame
                         x:Name="copy_button"
                         Padding="6"
                         BackgroundColor="#212529"
                         BorderColor="Transparent"
-                        BorderWidth="0"
-                        Clicked="copy_button_Clicked"
                         CornerRadius="21"
                         HeightRequest="30"
                         HorizontalOptions="End"
-                        Rotation="90"
-                        Source="copy.png"
                         VerticalOptions="CenterAndExpand"
                         WidthRequest="30">
-                        <ImageButton.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="White" />
-                        </ImageButton.Behaviors>
-                    </ImageButton>
+                        <Image
+                            HorizontalOptions="CenterAndExpand"
+                            Source="copy.png"
+                            VerticalOptions="CenterAndExpand">
+                            <Image.Behaviors>
+                                <toolkit:IconTintColorBehavior TintColor="White" />
+                            </Image.Behaviors>
+                        </Image>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="copy_button_Clicked" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>
+        <CollectionView.Footer>
+            <StackLayout HeightRequest="55" />
+        </CollectionView.Footer>
     </CollectionView>
 </ContentPage>

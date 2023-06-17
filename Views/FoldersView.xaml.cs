@@ -116,7 +116,7 @@ public partial class FoldersView : ContentPage
 
     private void copy_button_Clicked(object sender, EventArgs e)
     {
-        var clickedButton = sender as ImageButton;
+        var clickedButton = sender as Frame;
         var selectedFolderNode = clickedButton.BindingContext as HtmlAgilityPack.HtmlNode;
         var folderUrl = selectedFolderNode.GetAttributeValue("href", "");
 

@@ -36,7 +36,10 @@
             MinimumWidthRequest="110"
             SelectedIndexChanged="Picker_SelectedIndexChanged">
             <Picker.Items>
+                <x:String>https://dl2.gemexit.com/</x:String>
+                <x:String>https://dl3.gemexit.com/</x:String>
                 <x:String>https://dl4.gemexit.com/</x:String>
+                <x:String>https://dl5.gemexit.com/</x:String>
                 <x:String>http://dl.gemescape.com/</x:String>
                 <x:String>https://dl1.freelecher.xyz/English/</x:String>
                 <x:String>https://dl3.freelecher.xyz/English/</x:String>

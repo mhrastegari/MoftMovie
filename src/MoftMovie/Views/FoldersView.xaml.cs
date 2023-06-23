@@ -13,7 +13,7 @@ public partial class FoldersView : ContentPage
     {
         InitializeComponent();
         Current = this;
-        LoadFolders();
+        _ = LoadFolders();
     }
 
     public async Task LoadFolders()

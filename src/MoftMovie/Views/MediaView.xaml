@@ -7,22 +7,26 @@
     NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="False">
     <Grid>
-        <toolkit:MediaElement x:Name="media" ShouldAutoPlay="True">
-            <toolkit:MediaElement.GestureRecognizers>
-                <TapGestureRecognizer Tapped="media_Tapped" />
-                <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="media_DoubleTapped" />
-            </toolkit:MediaElement.GestureRecognizers>
-        </toolkit:MediaElement>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="media_Tapped" />
+            <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="media_DoubleTapped" />
+        </Grid.GestureRecognizers>
+        <toolkit:MediaElement x:Name="media" ShouldAutoPlay="True" />
         <Frame
-            x:Name="header"
             Margin="{OnPlatform WinUI='0,10'}"
-            Padding="21,0"
+            Padding="0"
             BackgroundColor="Transparent"
             CornerRadius="0"
             HasShadow="False"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="StartAndExpand">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="media_Tapped" />
+                <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="media_DoubleTapped" />
+            </Frame.GestureRecognizers>
             <StackLayout
+                x:Name="header"
+                Padding="21,0"
                 HeightRequest="72"
                 Orientation="Horizontal"
                 Spacing="16"
@@ -56,6 +60,7 @@
                     CornerRadius="21"
                     HeightRequest="30"
                     HorizontalOptions="EndAndExpand"
+                    IsVisible="{OnPlatform MacCatalyst=False}"
                     Rotation="90"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="30">

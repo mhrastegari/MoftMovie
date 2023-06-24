@@ -1,0 +1,111 @@
+name: MoftMovie CD
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "master" ]
+
+env:
+  PROJECT_PATH: "src/MoftMovie/MoftMovie.csproj"
+
+jobs:
+  build-moft-movie-android:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
+
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'microsoft'
+        java-version: '11'
+
+    - name: Install MAUI workloads
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+
+    - name: Build Maui Android apk
+      shell: pwsh
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Release -p:ApplicationDisplayVersion="${{ vars.APPLICATION_DISPLAY_VERSION }}" -p:ApplicationVersion="${{ vars.APPLICATION_VERSION }}" -f net7.0-android
+  
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: android-apk-bundle
+        path: src/MoftMovie/bin/release/net7.0-android/*-Signed.*
+
+  build-moft-movie-windows:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.1.3
+
+    - name: Install MAUI workloads
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      shell: pwsh
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+
+    - name: Build Maui Windows exe
+      shell: pwsh
+      run: dotnet build ${{ env.PROJECT_PATH }}  -c Release -p:WindowsPackageType=None -p:SelfContained=true -p:WindowsAppSDKSelfContained=true -p:GenerateAppxPackageOnBuild=false -p:RuntimeIdentifier=win10-x86 -p:ApplicationDisplayVersion="${{ vars.APPLICATION_DISPLAY_VERSION }}" -p:ApplicationVersion="${{ vars.APPLICATION_VERSION }}" -f net7.0-windows10.0.19041.0
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: win-exe-bundle
+        path: src/MoftMovie/bin/release/net7.0-windows10.0.19041.0/win10-x86
+
+  build-moft-movie-macos:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.0.x'
+
+    - name: Install MAUI workloads
+      shell: pwsh
+      run: dotnet workload install maui --source https://api.nuget.org/v3/index.json
+
+    - name: Restore NuGet packages
+      shell: bash
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+    
+    - name: Build Maui macOS pkg
+      shell: bash
+      run: dotnet build ${{ env.PROJECT_PATH }} -p:BlazorMode=BlazorHybrid -p:Configuration=Release -p:CreatePackage=true -p:ApplicationDisplayVersion="${{ vars.APPLICATION_DISPLAY_VERSION }}" -p:ApplicationVersion="${{ vars.APPLICATION_VERSION }}" -f net7.0-maccatalyst
+   
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: mac-pkg-bundle
+        path: src/MoftMovie/bin/release/net7.0-maccatalyst/*.pkg

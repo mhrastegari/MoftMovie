@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 env:
   PROJECT_PATH: "src/MoftMovie/MoftMovie.csproj"
@@ -44,7 +42,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
-        name: android-bundle
+        name: android-apk-bundle
         path: src/MoftMovie/bin/release/net7.0-android/*-Signed.*
 
   build-moft-movie-windows:

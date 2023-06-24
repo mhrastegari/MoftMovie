@@ -39,7 +39,7 @@ jobs:
 
     - name: Build Maui Android apk
       shell: pwsh
-      run: dotnet build ${{ env.PROJECT_PATH }} -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{ secrets.ANDROID_SIGNING_KEYSTORE }}" -p:AndroidSigningKeyAlias=MoftMovie -p:AndroidSigningKeyPass="${{ secrets.ANDROID_RELEASE_KEYSTORE_PASSWORD }}" -p:AndroidSigningStorePass="${{ secrets.ANDROID_RELEASE_SIGNING_PASSWORD }}" -p:ApplicationDisplayVersion="${{ vars.APPLICATION_DISPLAY_VERSION }}" -p:ApplicationVersion="${{ vars.APPLICATION_VERSION }}" -f net7.0-android
+      run: dotnet build ${{ env.PROJECT_PATH }} -c Release -p:ApplicationDisplayVersion="${{ vars.APPLICATION_DISPLAY_VERSION }}" -p:ApplicationVersion="${{ vars.APPLICATION_VERSION }}" -f net7.0-android
   
     - name: Upload artifact
       uses: actions/upload-artifact@v2

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="MoftMovie.Views.MediaView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -13,7 +13,7 @@
         </Grid.GestureRecognizers>
         <toolkit:MediaElement x:Name="media" ShouldAutoPlay="True" />
         <Frame
-            Margin="{OnPlatform WinUI='0,10'}"
+            Margin="{OnPlatform WinUI='0,10', MacCatalyst='85,-13'}"
             Padding="0"
             BackgroundColor="Transparent"
             CornerRadius="0"
@@ -33,19 +33,20 @@
                 VerticalOptions="CenterAndExpand">
                 <Frame
                     Padding="6"
-                    BackgroundColor="#212529"
+                    BackgroundColor="{AppThemeBinding Dark=#212529, Light=Whitesmoke}"
                     BorderColor="Transparent"
-                    CornerRadius="21"
-                    HeightRequest="30"
+                    CornerRadius="{OnPlatform MacCatalyst=10, Default=21}"
                     HorizontalOptions="StartAndExpand"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="30">
+                    IsClippedToBounds="True"
+                    VerticalOptions="CenterAndExpand">
                     <Image
+                        HeightRequest="{OnPlatform MacCatalyst=20, Default=30}"
                         HorizontalOptions="CenterAndExpand"
                         Source="back.png"
-                        VerticalOptions="CenterAndExpand">
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="30">
                         <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="White" />
+                            <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Dark=White, Light=Black}" />
                         </Image.Behaviors>
                     </Image>
                     <Frame.GestureRecognizers>
@@ -55,7 +56,7 @@
                 <Frame
                     x:Name="fullscreen_button"
                     Padding="6"
-                    BackgroundColor="#212529"
+                    BackgroundColor="{AppThemeBinding Dark=#212529, Light=Whitesmoke}"
                     BorderColor="Transparent"
                     CornerRadius="21"
                     HeightRequest="30"
@@ -69,7 +70,7 @@
                         Source="fullscreen.png"
                         VerticalOptions="CenterAndExpand">
                         <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="White" />
+                            <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Dark=White, Light=Black}" />
                         </Image.Behaviors>
                     </Image>
                     <Frame.GestureRecognizers>

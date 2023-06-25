@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="MoftMovie.Views.FoldersView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:MoftMovie.Views.Converters"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    NavigationPage.HasBackButton="False"
     NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -14,43 +15,47 @@
     <CollectionView x:Name="foldersView">
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <StackLayout
-                    Padding="10,0"
-                    HeightRequest="55"
-                    Orientation="Horizontal">
-                    <Label
-                        Padding="10"
-                        HorizontalOptions="StartAndExpand"
-                        HorizontalTextAlignment="Start"
-                        Text="{Binding InnerText, Converter={StaticResource RemoveTrailingSlashConverter}}"
-                        VerticalOptions="CenterAndExpand"
-                        VerticalTextAlignment="Center" />
-                    <Frame
-                        x:Name="copy_button"
-                        Padding="6"
-                        BackgroundColor="#212529"
-                        BorderColor="Transparent"
-                        CornerRadius="21"
-                        HeightRequest="30"
-                        HorizontalOptions="End"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="30">
-                        <Image
-                            HorizontalOptions="CenterAndExpand"
-                            Source="copy.png"
+                <VerticalStackLayout>
+                    <StackLayout
+                        Padding="12,0"
+                        HeightRequest="65"
+                        Orientation="Horizontal">
+                        <Label
+                            Padding="10"
+                            HorizontalOptions="StartAndExpand"
+                            HorizontalTextAlignment="Start"
+                            Text="{Binding InnerText, Converter={StaticResource RemoveTrailingSlashConverter}}"
+                            VerticalOptions="CenterAndExpand"
+                            VerticalTextAlignment="Center" />
+                        <Frame
+                            x:Name="copy_button"
+                            Padding="6"
+                            BackgroundColor="{AppThemeBinding Dark=#212529, Light=Whitesmoke}"
+                            BorderColor="Transparent"
+                            CornerRadius="21"
+                            HorizontalOptions="End"
+                            IsClippedToBounds="True"
                             VerticalOptions="CenterAndExpand">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="White" />
-                            </Image.Behaviors>
-                        </Image>
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="copy_button_Clicked" />
-                        </Frame.GestureRecognizers>
-                    </Frame>
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-                    </StackLayout.GestureRecognizers>
-                </StackLayout>
+                            <Image
+                                HeightRequest="30"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="copy.png"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="30">
+                                <Image.Behaviors>
+                                    <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Dark=White, Light=Black}" />
+                                </Image.Behaviors>
+                            </Image>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="copy_button_Clicked" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                    <BoxView HeightRequest="1" Margin="20,0,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" Color="Gray"/>
+                </VerticalStackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>
         <CollectionView.Footer>

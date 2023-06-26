@@ -30,18 +30,21 @@
                         <Frame
                             x:Name="copy_button"
                             Padding="6"
-                            BackgroundColor="{AppThemeBinding Dark=#212529, Light=Whitesmoke}"
+                            BackgroundColor="{AppThemeBinding Dark=#212529,
+                                                              Light=Whitesmoke}"
                             BorderColor="Transparent"
                             CornerRadius="21"
+                            HeightRequest="30"
                             HorizontalOptions="End"
                             IsClippedToBounds="True"
-                            VerticalOptions="CenterAndExpand">
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30">
                             <Image
-                                HeightRequest="30"
+                                HeightRequest="{OnPlatform MacCatalyst=30}"
                                 HorizontalOptions="CenterAndExpand"
                                 Source="copy.png"
                                 VerticalOptions="CenterAndExpand"
-                                WidthRequest="30">
+                                WidthRequest="{OnPlatform MacCatalyst=30}">
                                 <Image.Behaviors>
                                     <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Dark=White, Light=Black}" />
                                 </Image.Behaviors>
@@ -54,7 +57,12 @@
                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
-                    <BoxView HeightRequest="1" Margin="20,0,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" Color="Gray"/>
+                    <BoxView
+                        Margin="20,0,0,0"
+                        HeightRequest="1"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End"
+                        Color="Gray" />
                 </VerticalStackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>

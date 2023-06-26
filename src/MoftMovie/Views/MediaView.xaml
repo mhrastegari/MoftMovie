@@ -13,7 +13,8 @@
         </Grid.GestureRecognizers>
         <toolkit:MediaElement x:Name="media" ShouldAutoPlay="True" />
         <Frame
-            Margin="{OnPlatform WinUI='0,10', MacCatalyst='85,-13'}"
+            Margin="{OnPlatform WinUI='0,10',
+                                MacCatalyst='85,-13'}"
             Padding="0"
             BackgroundColor="Transparent"
             CornerRadius="0"
@@ -33,18 +34,23 @@
                 VerticalOptions="CenterAndExpand">
                 <Frame
                     Padding="6"
-                    BackgroundColor="{AppThemeBinding Dark=#212529, Light=Whitesmoke}"
+                    BackgroundColor="{AppThemeBinding Dark=#212529,
+                                                      Light=Whitesmoke}"
                     BorderColor="Transparent"
-                    CornerRadius="{OnPlatform MacCatalyst=10, Default=21}"
+                    CornerRadius="{OnPlatform MacCatalyst=10,
+                                              Default=21}"
+                    HeightRequest="{OnPlatform MacCatalyst=20,
+                                               Default=30}"
                     HorizontalOptions="StartAndExpand"
                     IsClippedToBounds="True"
-                    VerticalOptions="CenterAndExpand">
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="30">
                     <Image
-                        HeightRequest="{OnPlatform MacCatalyst=20, Default=30}"
+                        HeightRequest="{OnPlatform MacCatalyst=20}"
                         HorizontalOptions="CenterAndExpand"
                         Source="back.png"
                         VerticalOptions="CenterAndExpand"
-                        WidthRequest="30">
+                        WidthRequest="{OnPlatform MacCatalyst=30}">
                         <Image.Behaviors>
                             <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Dark=White, Light=Black}" />
                         </Image.Behaviors>
@@ -56,7 +62,8 @@
                 <Frame
                     x:Name="fullscreen_button"
                     Padding="6"
-                    BackgroundColor="{AppThemeBinding Dark=#212529, Light=Whitesmoke}"
+                    BackgroundColor="{AppThemeBinding Dark=#212529,
+                                                      Light=Whitesmoke}"
                     BorderColor="Transparent"
                     CornerRadius="21"
                     HeightRequest="30"
@@ -66,9 +73,11 @@
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="30">
                     <Image
+                        HeightRequest="{OnPlatform MacCatalyst=30}"
                         HorizontalOptions="CenterAndExpand"
                         Source="fullscreen.png"
-                        VerticalOptions="CenterAndExpand">
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="{OnPlatform MacCatalyst=30}">
                         <Image.Behaviors>
                             <toolkit:IconTintColorBehavior TintColor="{AppThemeBinding Dark=White, Light=Black}" />
                         </Image.Behaviors>
